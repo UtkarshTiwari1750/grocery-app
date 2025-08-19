@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { useCart } from '../context/CartContext';
+import { typography } from '../styles/typography';
 
 interface ProductCardProps {
   product: {
@@ -22,17 +23,17 @@ export default function ProductCard({ product, onPress, onAddPress }: ProductCar
       <View className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
         <Image source={{ uri: product.image }} className="h-32 w-full" resizeMode="cover" />
         <View className="p-3">
-          <Text className="mb-1 text-base font-semibold text-gray-900" numberOfLines={2}>
+          <Text style={[typography.productCardName, { marginBottom: 4 }]} numberOfLines={2}>
             {product.name}
           </Text>
-          <Text className="mb-3 text-sm text-gray-600">{product.weight}</Text>
+          <Text style={[typography.productCardWeight, { marginBottom: 12 }]}>{product.weight}</Text>
           <View className="flex-row items-center justify-between">
-            <Text className="text-lg font-bold text-gray-900">₹ {product.price}</Text>
+            <Text style={typography.productCardPrice}>₹ {product.price}</Text>
             <TouchableOpacity
               className="rounded-lg bg-orange-500 px-4 py-2"
               onPress={onAddPress}
               activeOpacity={0.8}>
-              <Text className="text-sm font-semibold text-white">
+              <Text style={[typography.productCardAddButton, { color: 'white' }]}>
                 {quantity > 0 ? `Add (${quantity})` : 'Add'}
               </Text>
             </TouchableOpacity>

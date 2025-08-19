@@ -4,6 +4,7 @@ import ProductListScreen from '../../src/screens/ProductListScreen';
 import ProductDetailScreen from '../../src/screens/ProductDetailScreen';
 import { AntDesign } from '@expo/vector-icons';
 import { RootStackParamList } from '../../src/types/navigation';
+import { typography } from '../../src/styles/typography';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -18,9 +19,7 @@ export default function StackNavigator() {
         },
         headerBackImage: () => <AntDesign name="left" size={24} color="#333333" className="" />,
         headerTintColor: '#333333',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
+        headerTitleStyle: typography.navigationHeader,
         headerTitleAlign: 'center',
       }}>
       <Stack.Screen

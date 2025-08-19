@@ -6,6 +6,7 @@ import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/navigation';
 import { useCart } from '../context/CartContext';
+import { typography } from '../styles/typography';
 
 type NavigationProp = StackNavigationProp<RootStackParamList>;
 type RoutePropType = RouteProp<RootStackParamList, 'ProductDetail'>;
@@ -67,16 +68,21 @@ export default function ProductDetailScreen() {
 
         {/* Product Info */}
         <View className="px-4">
-          <Text className="mb-2 text-2xl font-bold text-gray-900">{product.name}</Text>
-          <Text className="mb-4 text-base text-gray-600">{product.weight}</Text>
-          <Text className="mb-6 text-3xl font-bold text-gray-900">₹ {product.price}</Text>
+          <Text style={[typography.productDetailName, { marginBottom: 8 }]}>{product.name}</Text>
+          <Text
+            style={[typography.productDetailWeight, { marginBottom: 16 }, { color: '#5C5C5C' }]}>
+            {product.weight}
+          </Text>
+          <Text style={[typography.productDetailPrice, { marginBottom: 24 }]}>
+            ₹ {product.price}
+          </Text>
 
           {/* Quantity Selector */}
-          <View className="mb-8">
-            <Text className="mb-4 text-lg font-semibold text-gray-900">Quantity</Text>
+          <View className="mb-8 flex flex-row items-center justify-between bg-[#F0F0F0] p-4">
+            <Text style={[typography.quantityLabel]}>Quantity</Text>
             <View className="flex-row items-center">
               <TouchableOpacity
-                className="h-12 w-12 items-center justify-center rounded-lg bg-orange-500"
+                className="items-center justify-center rounded-sm bg-orange-500"
                 onPress={() => handleQuantityChange(-1)}
                 disabled={quantity <= 1}>
                 <Ionicons name="remove" size={22} color="white" />
@@ -85,7 +91,7 @@ export default function ProductDetailScreen() {
                 <Text className="text-center text-xl font-bold text-gray-900">{quantity}</Text>
               </View>
               <TouchableOpacity
-                className="h-12 w-12 items-center justify-center rounded-lg bg-orange-500"
+                className="items-center justify-center rounded-sm bg-orange-500"
                 onPress={() => handleQuantityChange(1)}>
                 <Ionicons name="add" size={22} color="white" />
               </TouchableOpacity>
@@ -94,10 +100,12 @@ export default function ProductDetailScreen() {
 
           {/* Description */}
           <View className="mb-8">
-            <Text className="mb-4 text-lg font-semibold text-gray-900">Description</Text>
-            <Text className="mb-3 leading-6 text-gray-700">{product.description}</Text>
+            <Text style={[typography.descriptionLabel, { marginBottom: 16 }]}>Description</Text>
+            <Text style={[typography.productDescription, { marginBottom: 12 }]}>
+              {product.description}
+            </Text>
             <TouchableOpacity onPress={handleReadMore}>
-              <Text className="font-semibold text-orange-500">Read more..</Text>
+              <Text style={[typography.readMoreText]}>Read more..</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -109,7 +117,9 @@ export default function ProductDetailScreen() {
           className="items-center rounded-xl bg-orange-500 py-4 shadow-lg"
           onPress={handleAddToCart}
           activeOpacity={0.8}>
-          <Text className="text-lg font-bold text-white">Add to Cart</Text>
+          <Text style={[typography.primaryButton, { color: 'white', fontSize: 18 }]}>
+            Add to Cart
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/navigation';
 import { getCategories, Category } from '../services/api';
+import { typography } from '../styles/typography';
 
 type NavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -50,7 +51,7 @@ export default function CategoriesScreen() {
       <View className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
         <Image source={{ uri: category.image }} className="h-32 w-full" resizeMode="cover" />
         <View className="p-4">
-          <Text className="text-center text-base font-semibold text-gray-900">{category.name}</Text>
+          <Text style={typography.categoryTitle}>{category.name}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -83,8 +84,8 @@ export default function CategoriesScreen() {
 
             {/* Need Help Section */}
             <View className="mt-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-              <Text className="mb-3 text-center text-xl font-bold text-gray-900">Need Help?</Text>
-              <Text className="mb-6 text-center text-base leading-6 text-gray-600">
+              <Text style={[typography.needHelpTitle, { marginBottom: 12 }]}>Need Help?</Text>
+              <Text style={[typography.needHelpDescription, { marginBottom: 24 }]}>
                 Our support team is ready to assist you with any questions or concerns.
               </Text>
               <TouchableOpacity
@@ -92,7 +93,9 @@ export default function CategoriesScreen() {
                 onPress={handleContactPress}
                 activeOpacity={0.8}>
                 <Ionicons name="chatbubble-outline" size={22} color="#059669" />
-                <Text className="ml-3 text-base font-semibold text-green-700">Contact Us</Text>
+                <Text style={[typography.contactUsButton, { marginLeft: 12, color: '#059669' }]}>
+                  Contact Us
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
