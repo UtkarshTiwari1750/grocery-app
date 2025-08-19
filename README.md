@@ -2,22 +2,6 @@
 
 A modern grocery shopping app built with React Native, Expo, and TypeScript.
 
-## Features
-
-### Phase 1 (Completed)
-- ✅ **Navigation Setup**: Bottom tabs + Stack navigation
-- ✅ **Categories Screen**: Browse different product categories
-- ✅ **Product List Screen**: View products in each category
-- ✅ **Product Detail Screen**: Detailed product view with quantity selector
-- ✅ **UI Components**: Reusable ProductCard and CategoryCard components
-- ✅ **TypeScript**: Full TypeScript support with proper type definitions
-- ✅ **Styling**: NativeWind (Tailwind CSS) for consistent styling
-
-### Upcoming Phases
-- 🔄 **Phase 2**: Cart functionality and state management
-- 🔄 **Phase 3**: Data integration with backend API
-- 🔄 **Phase 4**: Animations, theming, and polish
-
 ## Tech Stack
 
 - **Framework**: React Native with Expo
@@ -25,7 +9,7 @@ A modern grocery shopping app built with React Native, Expo, and TypeScript.
 - **Navigation**: React Navigation (Stack + Bottom Tabs)
 - **Styling**: NativeWind (Tailwind CSS for React Native)
 - **UI Components**: React Native Paper, Expo Vector Icons
-- **State Management**: React Context (Phase 2)
+- **State Management**: React Context
 
 ## Project Structure
 
@@ -59,6 +43,7 @@ grocery-app/
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js (v16 or higher)
 - npm or yarn
 - Expo CLI
@@ -67,17 +52,20 @@ grocery-app/
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd grocery-app
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Start the development server:
+
 ```bash
 npm start
 ```
@@ -96,32 +84,23 @@ npm start
 ## Screens
 
 ### Categories Screen
+
 - Displays product categories in a grid layout
 - Navigation to product lists
 - "Need Help?" section with contact support
 
 ### Product List Screen (Groceries)
+
 - Shows products filtered by category
 - Grid layout with product cards
 - Add to cart functionality (Phase 2)
 
 ### Product Detail Screen
+
 - Detailed product information
 - Image, description, price
 - Quantity selector
 - Add to cart button (Phase 2)
-
-## Design System
-
-### Colors
-- Primary: `#FF6B35` (Orange)
-- Secondary: `#FEF3C7` (Yellow)
-- Background: `#FFFFFF`
-- Text: Various gray shades
-
-### Typography
-- Font sizes: 12px to 32px
-- Font weights: Regular, Medium, Semibold, Bold
 
 ## Contributing
 
