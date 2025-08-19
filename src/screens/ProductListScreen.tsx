@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
@@ -8,6 +8,7 @@ import { RootStackParamList } from '../types/navigation';
 import { getProductsByCategory, Product } from '../services/api';
 import { useCart } from '../context/CartContext';
 import ProductCard from '../components/ProductCard';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 type NavigationProp = StackNavigationProp<RootStackParamList>;
 type RoutePropType = RouteProp<RootStackParamList, 'ProductList'>;
@@ -69,8 +70,7 @@ export default function ProductListScreen() {
 
   const renderLoadingState = () => (
     <View className="flex-1 items-center justify-center py-20">
-      <ActivityIndicator size="large" color="#F97316" />
-      <Text className="mt-4 text-lg font-medium text-gray-600">Loading products...</Text>
+      <LoadingSpinner message="Loading products..." size="large" />
     </View>
   );
 

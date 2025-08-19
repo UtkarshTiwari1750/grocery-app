@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Image, ActivityIndicator } from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +7,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/navigation';
 import { getCategories, Category } from '../services/api';
 import { typography } from '../styles/typography';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 type NavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -55,8 +56,7 @@ export default function CategoriesScreen() {
 
   const renderLoadingState = () => (
     <View className="flex-1 items-center justify-center py-20">
-      <ActivityIndicator size="large" color="#F97316" />
-      <Text className="mt-4 text-lg font-medium text-gray-600">Loading categories...</Text>
+      <LoadingSpinner message="Loading categories..." size="large" />
     </View>
   );
 
