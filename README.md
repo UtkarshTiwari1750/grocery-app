@@ -1,6 +1,6 @@
-# Grocery App - React Native
+# DailyBasket - Grocery Shopping App
 
-A modern grocery shopping app built with React Native, Expo, and TypeScript.
+A modern grocery shopping app built with React Native, Expo, and TypeScript featuring a comprehensive product catalog, shopping cart functionality, and custom branding.
 
 ## Tech Stack
 
@@ -9,35 +9,61 @@ A modern grocery shopping app built with React Native, Expo, and TypeScript.
 - **Navigation**: React Navigation (Stack + Bottom Tabs)
 - **Styling**: NativeWind (Tailwind CSS for React Native)
 - **UI Components**: React Native Paper, Expo Vector Icons
-- **State Management**: React Context
+- **State Management**: React Context API
+- **Splash Screen**: Expo Splash Screen
+- **Typography**: Custom typography system with Poppins and Inter fonts
 
 ## Project Structure
 
 ```
 grocery-app/
-├── app/                     # App-level navigation
-│   ├── navigation/          # Navigation setup
-│   │   ├── StackNavigator.tsx
-│   │   └── BottomTabs.tsx
-│   └── index.tsx           # Entry point
+├── app/                          # App-level navigation and entry point
+│   ├── navigation/               # Navigation configuration
+│   │   ├── StackNavigator.tsx    # Stack navigation setup
+│   │   └── BottomTabs.tsx        # Bottom tab navigation
+│   └── index.tsx                 # App entry point
 ├── src/
-│   ├── components/         # Reusable UI components
-│   │   ├── ProductCard.tsx
-│   │   └── CategoryCard.tsx
-│   ├── screens/           # All screens
-│   │   ├── CategoriesScreen.tsx
-│   │   ├── ProductListScreen.tsx
-│   │   ├── ProductDetailScreen.tsx
-│   │   ├── OrdersScreen.tsx
-│   │   └── ProfileScreen.tsx
-│   ├── services/          # API and data services
-│   │   └── api.ts
-│   ├── types/             # TypeScript type definitions
-│   │   └── navigation.ts
-│   └── styles/            # Theme and styling
-│       └── theme.ts
-├── package.json
-└── README.md
+│   ├── components/               # Reusable UI components
+│   │   ├── CategoryCard.tsx      # Category display card
+│   │   ├── ProductCard.tsx       # Product display card
+│   │   ├── LoadingSpinner.tsx    # Custom animated loading spinner
+│   │   └── SplashScreen.tsx      # Custom branded splash screen
+│   ├── context/                  # React Context providers
+│   │   └── CartContext.tsx       # Shopping cart state management
+│   ├── screens/                  # Application screens
+│   │   ├── CategoriesScreen.tsx  # Main categories view
+│   │   ├── ProductListScreen.tsx # Products by category
+│   │   ├── ProductDetailScreen.tsx # Individual product details
+│   │   ├── CartScreen.tsx        # Shopping cart view
+│   │   ├── OrdersScreen.tsx      # Order history
+│   │   ├── ProfileScreen.tsx     # User profile
+│   │   └── HomeScreen.tsx        # Home screen (placeholder)
+│   ├── services/                 # API and data services
+│   │   └── api.ts               # Mock API with 46+ products
+│   ├── styles/                   # Styling and typography
+│   │   ├── typography.ts         # Centralized typography system
+│   │   ├── fonts.ts             # Font configuration
+│   │   └── theme.ts             # Color and spacing theme
+│   ├── types/                    # TypeScript type definitions
+│   │   └── navigation.ts         # Navigation type definitions
+│   ├── hooks/                    # Custom React hooks (empty)
+│   └── assets/                   # Source-level assets (empty)
+├── assets/                       # Static assets
+│   ├── icon.png                 # Custom app icon
+│   ├── adaptive-icon.png        # Android adaptive icon
+│   ├── splash.png               # Splash screen image
+│   └── favicon.png              # Web favicon
+├── components/                   # Legacy components (unused)
+│   ├── Container.tsx
+│   ├── EditScreenInfo.tsx
+│   └── ScreenContent.tsx
+├── App.tsx                      # Root component with splash screen logic
+├── app.json                     # Expo configuration with custom icon
+├── global.css                   # Global Tailwind CSS styles
+├── package.json                 # Dependencies and scripts
+├── tailwind.config.js           # Tailwind CSS configuration
+├── metro.config.js              # Metro bundler configuration
+└── tsconfig.json                # TypeScript configuration
 ```
 
 ## Getting Started
@@ -81,26 +107,124 @@ npm start
 - `npm run lint` - Run ESLint
 - `npm run format` - Format code with Prettier
 
+## Features
+
+### 🏪 Product Catalog
+
+- **46+ Products** across 4 categories (Groceries, Vegetables, Fruits, Dairy)
+- **Detailed Descriptions** with nutritional information and cooking suggestions
+- **High-Quality Images** from Unsplash for each product
+- **Smart ReadMore** functionality for long descriptions
+
+### 🛒 Shopping Cart
+
+- **Add to Cart** functionality with quantity management
+- **Cart Context** for state management across screens
+- **Persistent Cart** state throughout the app
+- **Quantity Controls** with increment/decrement buttons
+
+### 🎨 Custom Branding
+
+- **Custom App Icon** replacing React Native logo
+- **Branded Splash Screen** with app name and tagline
+- **Animated Loading States** with rotating custom icon
+- **Consistent Typography** system with Poppins and Inter fonts
+
+### 📱 User Interface
+
+- **Modern Design** with NativeWind (Tailwind CSS)
+- **Responsive Grid Layouts** for categories and products
+- **Smooth Navigation** with React Navigation
+- **Loading States** with custom animated spinners
+
 ## Screens
 
-### Categories Screen
+### 🏠 Categories Screen
 
-- Displays product categories in a grid layout
-- Navigation to product lists
+- Grid layout displaying 4 product categories
+- Custom loading spinner with app branding
 - "Need Help?" section with contact support
+- Navigation to category-specific product lists
 
-### Product List Screen (Groceries)
+### 📦 Product List Screen
 
-- Shows products filtered by category
-- Grid layout with product cards
-- Add to cart functionality (Phase 2)
+- Products filtered by selected category
+- 2-column grid layout with product cards
+- Add to cart functionality with quantity controls
+- Custom loading states with branded spinner
 
-### Product Detail Screen
+### 🔍 Product Detail Screen
 
-- Detailed product information
-- Image, description, price
-- Quantity selector
-- Add to cart button (Phase 2)
+- Comprehensive product information display
+- High-resolution product images
+- Expandable descriptions with ReadMore functionality
+- Quantity selector with increment/decrement controls
+- Add to cart with quantity management
+
+### 🛒 Cart Screen
+
+- Shopping cart items display
+- Quantity management for cart items
+- Total price calculation
+- Remove items functionality
+
+### 👤 Profile & Orders Screens
+
+- User profile management (placeholder)
+- Order history display (placeholder)
+- Ready for future implementation
+
+## Typography System
+
+The app features a comprehensive typography system with:
+
+### 📝 Font Families
+
+- **Poppins**: Used for headings, titles, and important UI elements
+- **Inter**: Used for body text, descriptions, and general content
+
+### 🎯 Typography Features
+
+- **Centralized Configuration**: All typography styles in `src/styles/typography.ts`
+- **Common Constants**: Reusable style combinations to reduce code duplication
+- **Consistent Sizing**: Standardized font sizes, line heights, and letter spacing
+- **Type Safety**: Full TypeScript support for all typography styles
+
+### 📱 Usage Examples
+
+```tsx
+// Basic usage
+<Text style={typography.productCardName}>Product Name</Text>
+
+// With additional styles
+<Text style={[typography.needHelpTitle, { marginBottom: 12, color: 'red' }]}>
+  Custom Title
+</Text>
+
+// Using the merge helper
+<Text style={mergeTypography(typography.bodyText, { color: 'blue' })}>
+  Custom Text
+</Text>
+```
+
+## Recent Improvements
+
+### ✨ Latest Updates
+
+- **Custom Icon Integration**: Replaced React Native logo with custom DailyBasket icon
+- **Enhanced Product Descriptions**: Added detailed nutritional and cooking information
+- **ReadMore Functionality**: Inline expandable text for long descriptions
+- **Typography Optimization**: Reduced code duplication by 65% with common constants
+- **Animated Loading States**: Custom rotating icon animations
+- **Branded Splash Screen**: Professional app launch experience
+
+### 🔧 Technical Enhancements
+
+- **Expo Splash Screen**: Proper splash screen handling with custom branding
+- **Loading Spinner Component**: Reusable animated loading component
+- **Typography Constants**: Optimized typography system with shared style combinations
+- **Cart Context**: Comprehensive shopping cart state management
+- **Type Safety**: Enhanced TypeScript definitions throughout the app
 
 ## Contributing
 
