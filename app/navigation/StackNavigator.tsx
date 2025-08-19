@@ -1,21 +1,49 @@
-import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabs from './BottomTabs';
 import ProductListScreen from '../../src/screens/ProductListScreen';
 import ProductDetailScreen from '../../src/screens/ProductDetailScreen';
+import { AntDesign } from '@expo/vector-icons';
+import { RootStackParamList } from '../../src/types/navigation';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function StackNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen name="Main" component={BottomTabs} />
-      <Stack.Screen name="ProductList" component={ProductListScreen} />
-      <Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
+        headerStyle: {
+          backgroundColor: '#FFF3B0',
+          borderBottomEndRadius: 25,
+          borderBottomStartRadius: 25,
+        },
+        headerBackImage: () => <AntDesign name="left" size={24} color="#333333" className="" />,
+        headerTintColor: '#333333',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        headerTitleAlign: 'center',
+      }}>
+      <Stack.Screen
+        name="Main"
+        component={BottomTabs}
+        options={{
+          title: 'Categories', // Default title, will be updated dynamically
+        }}
+      />
+      <Stack.Screen
+        name="ProductList"
+        component={ProductListScreen}
+        options={({ route }) => ({
+          title: route.params?.category || 'Products',
+        })}
+      />
+      <Stack.Screen
+        name="ProductDetail"
+        component={ProductDetailScreen}
+        options={({ route }) => ({
+          title: route.params?.product?.name || 'Product Detail',
+        })}
+      />
     </Stack.Navigator>
   );
 }

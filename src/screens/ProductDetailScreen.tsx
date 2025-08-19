@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, Image } from 'react-native';
+import { useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../types/navigation';
-import { Product } from '../services/api';
+import { useCart } from '../context/CartContext';
 
 type NavigationProp = StackNavigationProp<RootStackParamList>;
 type RoutePropType = RouteProp<RootStackParamList, 'ProductDetail'>;
@@ -26,10 +26,8 @@ export default function ProductDetailScreen() {
   };
 
   const [quantity, setQuantity] = useState(1);
-
-  const handleBackPress = () => {
-    navigation.goBack();
-  };
+  const { addItem, updateQuantity: updateCartQuantity, getItemQuantity } = useCart();
+  const cartQuantity = getItemQuantity(product.id);
 
   const handleQuantityChange = (change: number) => {
     const newQuantity = quantity + change;
@@ -39,7 +37,16 @@ export default function ProductDetailScreen() {
   };
 
   const handleAddToCart = () => {
-    console.log('Add to cart:', { ...product, quantity });
+    if (cartQuantity > 0) {
+      // Update existing item quantity
+      updateCartQuantity(product.id, cartQuantity + quantity);
+    } else {
+      // Add new item with specified quantity
+      for (let i = 0; i < quantity; i++) {
+        addItem(product);
+      }
+    }
+    console.log(`Added ${quantity} ${product.name}(s) to cart`);
   };
 
   const handleReadMore = () => {
@@ -48,14 +55,6 @@ export default function ProductDetailScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      {/* Header */}
-      <View className="flex-row items-center bg-yellow-200 px-4 py-4">
-        <TouchableOpacity className="mr-4" onPress={handleBackPress}>
-          <Ionicons name="chevron-back" size={24} color="#333" />
-        </TouchableOpacity>
-        <Text className="text-xl font-semibold text-gray-800">{product.name}</Text>
-      </View>
-
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
         {/* Product Image */}
         <View className="px-4 py-6">

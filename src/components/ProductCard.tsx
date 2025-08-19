@@ -1,5 +1,5 @@
-import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { useCart } from '../context/CartContext';
 
 interface ProductCardProps {
   product: {
@@ -14,6 +14,9 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, onPress, onAddPress }: ProductCardProps) {
+  const { getItemQuantity } = useCart();
+  const quantity = getItemQuantity(product.id);
+
   return (
     <TouchableOpacity className="mb-4 w-[48%]" onPress={onPress} activeOpacity={0.7}>
       <View className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
@@ -29,7 +32,9 @@ export default function ProductCard({ product, onPress, onAddPress }: ProductCar
               className="rounded-lg bg-orange-500 px-4 py-2"
               onPress={onAddPress}
               activeOpacity={0.8}>
-              <Text className="text-sm font-semibold text-white">Add</Text>
+              <Text className="text-sm font-semibold text-white">
+                {quantity > 0 ? `Add (${quantity})` : 'Add'}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

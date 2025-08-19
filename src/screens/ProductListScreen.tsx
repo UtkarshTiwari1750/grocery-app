@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  SafeAreaView,
-  FlatList,
-  Image,
-  ActivityIndicator,
-} from 'react-native';
+import { useState, useEffect, useCallback } from 'react';
+import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../types/navigation';
 import { getProductsByCategory, Product } from '../services/api';
+import { useCart } from '../context/CartContext';
+import ProductCard from '../components/ProductCard';
 
 type NavigationProp = StackNavigationProp<RootStackParamList>;
 type RoutePropType = RouteProp<RootStackParamList, 'ProductList'>;
@@ -24,12 +18,9 @@ export default function ProductListScreen() {
   const { category } = route.params || { category: 'Groceries' };
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const { addItem, getItemQuantity } = useCart();
 
-  useEffect(() => {
-    loadProducts();
-  }, [category]);
-
-  const loadProducts = async () => {
+  const loadProducts = useCallback(async () => {
     try {
       setLoading(true);
       const data = await getProductsByCategory(category);
@@ -39,7 +30,11 @@ export default function ProductListScreen() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [category]);
+
+  useEffect(() => {
+    loadProducts();
+  }, [loadProducts]);
 
   const handleBackPress = () => {
     navigation.goBack();
@@ -50,33 +45,16 @@ export default function ProductListScreen() {
   };
 
   const handleAddPress = (product: Product) => {
-    console.log('Add to cart:', product);
+    addItem(product);
+    console.log('Added to cart:', product.name);
   };
 
   const renderProduct = ({ item }: { item: Product }) => (
-    <TouchableOpacity
-      className="mb-4 w-[48%]"
+    <ProductCard
+      product={item}
       onPress={() => handleProductPress(item)}
-      activeOpacity={0.7}>
-      <View className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-        <Image source={{ uri: item.image }} className="h-32 w-full" resizeMode="cover" />
-        <View className="p-3">
-          <Text className="mb-1 text-base font-semibold text-gray-900" numberOfLines={2}>
-            {item.name}
-          </Text>
-          <Text className="mb-3 text-sm text-gray-600">{item.weight}</Text>
-          <View className="flex-row items-center justify-between">
-            <Text className="text-lg font-bold text-gray-900">₹ {item.price}</Text>
-            <TouchableOpacity
-              className="rounded-lg bg-orange-500 px-4 py-2"
-              onPress={() => handleAddPress(item)}
-              activeOpacity={0.8}>
-              <Text className="text-sm font-semibold text-white">Add</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </TouchableOpacity>
+      onAddPress={() => handleAddPress(item)}
+    />
   );
 
   const renderEmptyState = () => (
@@ -98,14 +76,6 @@ export default function ProductListScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-gray-50">
-      {/* Header */}
-      <View className="flex-row items-center bg-yellow-200 px-4 py-4 shadow-sm">
-        <TouchableOpacity className="mr-4" onPress={handleBackPress}>
-          <Ionicons name="chevron-back" size={24} color="#333" />
-        </TouchableOpacity>
-        <Text className="text-xl font-bold text-gray-800">{category}</Text>
-      </View>
-
       {/* Products Grid */}
       {loading ? (
         renderLoadingState()

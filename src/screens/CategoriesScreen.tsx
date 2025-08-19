@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  SafeAreaView,
-  ScrollView,
-  Image,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Image, ActivityIndicator } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -71,20 +64,18 @@ export default function CategoriesScreen() {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50">
-      {/* Header */}
-      <View className="flex-row items-center bg-yellow-200 px-4 py-4 shadow-sm">
-        <TouchableOpacity className="mr-4" onPress={handleBackPress}>
-          <Ionicons name="chevron-back" size={24} color="#333" />
-        </TouchableOpacity>
-        <Text className="text-xl font-bold text-gray-800">Categories</Text>
-      </View>
-
+    <SafeAreaView
+      className="flex-1 bg-gray-50"
+      edges={['left', 'right', 'top']}
+      style={{ paddingHorizontal: 16 }}>
       {loading ? (
         renderLoadingState()
       ) : (
-        <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-          <View className="px-4 py-6">
+        <ScrollView
+          className="flex-1"
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingVertical: 20 }}>
+          <View className="px-4">
             {/* Categories Grid */}
             <View className="flex-row flex-wrap justify-between">
               {categories.map(renderCategory)}
