@@ -27,6 +27,7 @@ export default function ProductDetailScreen() {
   };
 
   const [quantity, setQuantity] = useState(1);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const { addItem, updateQuantity: updateCartQuantity, getItemQuantity } = useCart();
   const cartQuantity = getItemQuantity(product.id);
 
@@ -51,8 +52,24 @@ export default function ProductDetailScreen() {
   };
 
   const handleReadMore = () => {
-    console.log('Read more pressed');
+    setIsDescriptionExpanded(!isDescriptionExpanded);
   };
+
+  // Function to truncate description at word boundaries
+  const getTruncatedDescription = (text: string, maxLength: number = 100) => {
+    if (text.length <= maxLength) return text;
+
+    // Find the last space before maxLength to avoid cutting words
+    const truncated = text.substring(0, maxLength);
+    const lastSpaceIndex = truncated.lastIndexOf(' ');
+
+    // If we found a space, cut at that point, otherwise use the original cut
+    const cutPoint = lastSpaceIndex > maxLength * 0.8 ? lastSpaceIndex : maxLength;
+
+    return text.substring(0, cutPoint).trim();
+  };
+
+  const shouldShowReadMore = product.description && product.description.length > 100;
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -102,11 +119,15 @@ export default function ProductDetailScreen() {
           <View className="mb-8">
             <Text style={[typography.descriptionLabel, { marginBottom: 16 }]}>Description</Text>
             <Text style={[typography.productDescription, { marginBottom: 12 }]}>
-              {product.description}
+              {isDescriptionExpanded
+                ? product.description
+                : getTruncatedDescription(product.description || '', 100)}
+              {shouldShowReadMore && (
+                <Text style={[typography.readMoreText]} onPress={handleReadMore}>
+                  {isDescriptionExpanded ? ' Read less' : '... Read more'}
+                </Text>
+              )}
             </Text>
-            <TouchableOpacity onPress={handleReadMore}>
-              <Text style={[typography.readMoreText]}>Read more..</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>

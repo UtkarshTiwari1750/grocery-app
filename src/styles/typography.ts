@@ -129,11 +129,13 @@ export const typography = StyleSheet.create({
   needHelpTitle: {
     ...commonStyles.poppinsSemiBold24,
     textAlign: commonStyles.textCenter,
+    fontWeight: '800'
   } as TextStyle,
 
   needHelpDescription: {
     ...commonStyles.interMedium14,
     textAlign: commonStyles.textCenter,
+    fontWeight: '600'
   } as TextStyle,
 
   contactUsButton: {

@@ -38,10 +38,6 @@ export default function CategoriesScreen() {
     console.log('Contact us pressed');
   };
 
-  const handleBackPress = () => {
-    navigation.goBack();
-  };
-
   const renderCategory = (category: Category) => (
     <TouchableOpacity
       key={category.id}
@@ -68,7 +64,7 @@ export default function CategoriesScreen() {
     <SafeAreaView
       className="flex-1 bg-gray-50"
       edges={['left', 'right', 'top']}
-      style={{ paddingHorizontal: 16 }}>
+      style={{ paddingHorizontal: 8 }}>
       {loading ? (
         renderLoadingState()
       ) : (
@@ -83,17 +79,17 @@ export default function CategoriesScreen() {
             </View>
 
             {/* Need Help Section */}
-            <View className="mt-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+            <View className="mt-8 rounded-2xl border-[0.5px] border-[#C0C0C0] bg-[#F0F0F0] p-6 shadow-sm">
               <Text style={[typography.needHelpTitle, { marginBottom: 12 }]}>Need Help?</Text>
               <Text style={[typography.needHelpDescription, { marginBottom: 24 }]}>
                 Our support team is ready to assist you with any questions or concerns.
               </Text>
               <TouchableOpacity
-                className="flex-row items-center justify-center rounded-xl border border-green-200 bg-green-100 px-6 py-4"
+                className="flex-row items-center justify-center rounded-xl  bg-[#CDEBD7] px-6 py-4"
                 onPress={handleContactPress}
                 activeOpacity={0.8}>
-                <Ionicons name="chatbubble-outline" size={22} color="#059669" />
-                <Text style={[typography.contactUsButton, { marginLeft: 12, color: '#059669' }]}>
+                <Ionicons name="chatbubble-outline" size={22} color="#333333" />
+                <Text style={[typography.contactUsButton, { marginLeft: 12, color: '#333333' }]}>
                   Contact Us
                 </Text>
               </TouchableOpacity>
